@@ -12,5 +12,4 @@ export const routes = [
     {path: '/music', component: Music},
     {path: '/people', component: People},
     {path: '/cms', component: Cms}
-
 ];

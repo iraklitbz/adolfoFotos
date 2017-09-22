@@ -1,205 +1,61 @@
 <template>
-<div class="galleryEditorials">
-    <div class="column">
-       <ul class="galery-horiz">
-           <li v-for="foto in fotosLef"> 
-               <img :src="'/src/images/actores/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
-           </li>
-       </ul>
-    </div>
-
-    <div class="column">
-       <ul class="galery-horiz">
-                 <li v-for="foto in fotosMidd"> 
-                     <img :src="'/src/images/actores/' + foto.pic.url + '.jpg'" > 
-                     <h2>{{foto.pic.name}}</h2>
+    <div class="galleryEditorials">
+        <div class="column">
+           <ul class="galery-horiz">
+                <li v-for="foto in fotosL"> 
+                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <h2>{{foto.name}}</h2>
                 </li>
-       </ul>
-    </div>
+           </ul>
+        </div>
 
-    <div class="column">
-       <ul class="galery-horiz">
-            <li v-for="foto in fotosRig"> 
-               <img :src="'/src/images/actores/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
-            </li>
-       </ul>
-    </div>
-</div>
+        <div class="column">
+            <ul class="galery-horiz">
+                <li v-for="foto in fotosM"> 
+                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <h2>{{foto.name}}</h2>
+                </li>
+            </ul>
+        </div>
 
+        <div class="column">
+            <ul class="galery-horiz">
+                <li v-for="foto in fotosR"> 
+                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <h2>{{foto.name}}</h2>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import { db } from './../../firebase';
+
+let actoresRef = db.ref('Actors');
+
 export default {
-  data(){
-      let randoM = {
-            fotosRig: [
-                        { pic: {
-                            url: 'ALBERTORODRIGUEZ',
-                            name: 'Alberto Rodriguez'
-                        } },
-                        { pic: {
-                            url: 'ALEXGARCIA',
-                            name: 'Alex García'
-                        } },
-                        { pic: {
-                            url: 'ALEXGARCIA2',
-                            name: 'Alex García'
-                        } },
-                        { pic: {
-                            url: 'AMAIASALAMANCA',
-                            name: 'Amaia Salamanca'
-                        } },
-                        { pic: {
-                            url: 'ANTONIODELATORRE',
-                            name: 'Antonio De La Torre'
-                        } },
-                        { pic: {
-                            url: 'ANTONIODELATORRE2',
-                            name: 'Antonio De La Torre'
-                        } },
-                        { pic: {
-                            url: 'MARTINRIVAS5',
-                            name: 'Martín Rivas'
-                        } },
-                        { pic: {
-                            url: 'MEGANMONTANER',
-                            name: 'Megan Montera'
-                        } },
-                        { pic: {
-                            url: 'MEGANMONTANER2',
-                            name: 'Megan Montera'
-                        } },
-                        { pic: {
-                            url: 'PATRICIACONDE',
-                            name: 'Patricia Conde'
-                        } },
-                        { pic: {
-                            url: 'URSULACORBERO',
-                            name: 'Ursula Corbero'
-                        } }
-                        
-                ],
+    data () {
+        return {
+            fotosL: [],
+            fotosM: [],
+            fotosR: []
+        }
+    },
+    mounted () {
+        let __self = this;
 
-                fotosMidd: [
-                        { pic: {
-                            url: 'ANTONIORESINES',
-                            name: 'Antonio Resines'
-                        } },
-                        { pic: {
-                            url: 'ASTRIDBERGESFRISBEY2',
-                            name: 'Àstrid Bergès-Frisbey'
-                        } },
-                        { pic: {
-                            url: 'DANIELGUZMAN',
-                            name: 'Daniel Guzman'
-                        } },
-                        { pic: {
-                            url: 'JOSECORONADO',
-                            name: 'José Cornado'
-                        } },
-                        { pic: {
-                            url: 'JOSEMOTA',
-                            name: 'José Mota'
-                        } },
-                        { pic: {
-                            url: 'JOSEMOTA2',
-                            name: 'José Mota'
-                        } },
-                        { pic: {
-                            url: 'MIGUELANGELSILVESTRE',
-                            name: 'Miguel Ángel Silvestre'
-                        } },
-                        { pic: {
-                            url: 'MIGUELANGELSILVESTRE2',
-                            name: 'Miguel Ángel Silvestre'
-                        } },
-                        { pic: {
-                            url: 'MIGUELANGELSILVESTRE3',
-                            name: 'Miguel Ángel Silvestre'
-                        } },
-                        { pic: {
-                            url: 'PATRICIACONDE2',
-                            name: 'Patricia Conde'
-                        } },
-                        { pic: {
-                            url: 'YONGONZALEZ2',
-                            name: 'Yon Gonzalez'
-                        } }
-                ],
-                fotosLef: [
-                    { pic: {
-                        url: 'LETICIADOLERA',
-                        name: 'Leticia Dolera'
-                    } },
-                    { pic: {
-                        url: 'MANUELAVELLES',
-                        name: 'Manuel Avelles'
-                    } },             
-                    { pic: {
-                        url: 'MARIANALVAREZ',
-                        name: 'Maria Nalvarez'
-                    } },  
-                    { pic: {
-                        url: 'MARIOCASAS',
-                        name: 'Mario Casas'
-                    } },
-                    { pic: {
-                        url: 'MARIOCASAS2',
-                        name: 'Mario Casas'
-                    } },              
-                    { pic: {
-                        url: 'MARTINRIVAS2',
-                        name: 'Martín Rivas'
-                    } },
-                    { pic: {
-                        url: 'MIRIAMGIOVANELLI',
-                        name: 'Miriam Giovanelli'
-                    } },
-                    { pic: {
-                        url: 'OONACHAPLIN1',
-                        name: 'Oona Chaplin'
-                    } },
-                    { pic: {
-                        url: 'OONACHAPLIN3',
-                        name: 'Oona Chaplin'
-                    } },
-                    { pic: {
-                        url: 'SANTIMILLAN2',
-                        name: 'Santi Millan'
-                    } },
-                    { pic: {
-                        url: 'YONGONZALEZ3',
-                        name: 'Yon Gonzalez'
-                    } }
-                ]
-             }
+        actoresRef.on('value', (snapshot) => {
+            let __actores = __self.$parent.$parent.sliceArray(snapshot.val(), 3);
 
-
-    randoM.fotosRig = _.shuffle(randoM.fotosRig);
-    randoM.fotosMidd = _.shuffle(randoM.fotosMidd);
-    randoM.fotosLef = _.shuffle(randoM.fotosLef);
-      
-      return randoM;
-  },
-
-  /*
-
-  created(){
-      let actors = db.ref('/Actors').on('value', snapshot => this.cargarArray(snapshot.val()))
-  },
-
-  methods: {
-      cargarArray(actors){
-         console.log(actors)
-      }
-  }
- */
- 
+            this.fotosL = __actores[0];
+            this.fotosM = __actores[1];
+            this.fotosR = __actores[2];
+        });
+    }
 }
+
 </script>
 
 <style lang="scss">
