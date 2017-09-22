@@ -26,7 +26,7 @@ new Vue({
                 return item;
             });
 
-            __qt = __data.length / chunkSize;
+            __qt = Math.round(__data.length / chunkSize);
             __data = _.chunk(_.shuffle(__data), __qt);
 
             return __data;
