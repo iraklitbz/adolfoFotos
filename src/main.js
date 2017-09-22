@@ -4,6 +4,7 @@ import {routes} from './routes';
 import './firebase';
 import App from './App.vue';
 import VueFire from "vuefire";
+import _ from 'lodash';
 
 Vue.use(VueRouter);
 Vue.use(VueFire);

@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import { db } from './../../firebase';
 
 let actoresRef = db.ref('Actors');
