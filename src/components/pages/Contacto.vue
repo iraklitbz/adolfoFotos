@@ -25,23 +25,29 @@ export default {
   margin: 20px auto;
 
     h2 {
+        font-family: 'Lato', sans-serif!important;
         margin-bottom: 20px;
-        font-size: 28px;
+        font-size: 26px;
         text-align: center;
-          text-transform: uppercase;
+        font-weight: 100!important;
+        color: #5b5b5b
     }
 }
 
     .contact-me {
         li {
+            font-family: 'Lato', sans-serif;
         padding: 10px 0px;
-        font-size: 26px;
+        font-size: 24px;
+         color: #5b5b5b;
         i {
             margin-right: 10px;
+             color: #5b5b5b
         }
         a {
+            font-family: 'Lato', sans-serif;
             text-decoration: none;
-            color: #333;
+             color: #5b5b5b;
             transition: color 0.2s linear;
             &:hover {
                 color: #D32C2E
