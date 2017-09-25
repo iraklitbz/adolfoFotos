@@ -3,7 +3,7 @@
         <div class="column">
            <ul class="galery-horiz">
                 <li v-for="foto in fotosL"> 
-                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <img v-getImage="{'name': foto.url}" src="" /> 
                     <h2>{{foto.name}}</h2>
                 </li>
            </ul>
@@ -12,7 +12,7 @@
         <div class="column">
             <ul class="galery-horiz">
                 <li v-for="foto in fotosM"> 
-                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <img v-getImage="{'name': foto.url}" src="" /> 
                     <h2>{{foto.name}}</h2>
                 </li>
             </ul>
@@ -21,7 +21,7 @@
         <div class="column">
             <ul class="galery-horiz">
                 <li v-for="foto in fotosR"> 
-                    <img :src="'/src/images/actores/' + foto.url + '.jpg'" > 
+                    <img v-getImage="{'name': foto.url}" src="" /> 
                     <h2>{{foto.name}}</h2>
                 </li>
             </ul>
@@ -31,6 +31,7 @@
 
 <script>
 import { db } from './../../firebase';
+import { imgActors } from './../../firebase';
 
 let actoresRef = db.ref('Actors');
 
@@ -42,7 +43,20 @@ export default {
             fotosR: []
         }
     },
+    directives: {
+        getImage (el, bind) {
+            imgActors
+                .child(bind.value.name + '.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    el.src = url;                
+                }).catch(function(error) {
+                    console.error(error);
+                });
+        }
+    },
     mounted () {
+
         let __self = this;
 
         actoresRef.on('value', (snapshot) => {

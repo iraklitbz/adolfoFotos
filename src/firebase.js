@@ -10,4 +10,12 @@ const app = initializeApp ({
 });
 
 export const db = app.database();
+export const imgRefs = app.storage().ref();
+export const imgActors = imgRefs.child('/actores/');
+export const imgEditorial = imgRefs.child('/editorial/');
+export const imgMusica = imgRefs.child('/musica/');
+export const imgPeople = imgRefs.child('/people/');
 export const actorsRef = db.ref('Actors');
+export const editorialRef = db.ref('Editorial');
+export const peopleRef = db.ref('People');
+export const musicaRef = db.ref('Musica');

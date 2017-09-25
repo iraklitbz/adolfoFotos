@@ -115,6 +115,7 @@ footer {
          transition: color 0.2s linear;
          text-decoration: none;
          font-size: 27px!important;
+         color: #D32C2E;
         &:hover {
                 color: #D32C2E
         }
@@ -182,5 +183,18 @@ footer {
         z-index: 100
     }
 }
+
+ @media screen and (max-width: 770px)  {
+    .navbar {
+    ul {
+        li {
+            padding: 5px 3px;
+            a {
+                font-size: 12px;
+            }
+        }
+    }
+}
+  }
 
 </style>

@@ -2,27 +2,27 @@
 <div class="galleryEditorials">
     <div class="column">
        <ul class="galery-horiz">
-           <li v-for="foto in fotosLef" :key="foto.id"> 
-               <img :src="'/src/images/editorial/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
+           <li v-for="foto in fotosL"> 
+               <img v-getImage="{'name': foto.url}" src="" />  
+               <h2>{{foto.name}}</h2>
            </li>
        </ul>
     </div>
 
     <div class="column">
        <ul class="galery-horiz">
-                 <li v-for="foto in fotosMidd"> 
-                     <img :src="'/src/images/editorial/' + foto.pic.url + '.jpg'" > 
-                     <h2>{{foto.pic.name}}</h2>
+                 <li v-for="foto in fotosM"> 
+                     <img v-getImage="{'name': foto.url}" src="" />  
+                     <h2>{{foto.name}}</h2>
                 </li>
        </ul>
     </div>
 
     <div class="column">
        <ul class="galery-horiz">
-            <li v-for="foto in fotosRig"> 
-               <img :src="'/src/images/editorial/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
+            <li v-for="foto in fotosR"> 
+               <img v-getImage="{'name': foto.url}" src="" />  
+               <h2>{{foto.name}}</h2>
             </li>
        </ul>
     </div>
@@ -31,239 +31,42 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import { db } from './../../firebase';
+import { imgEditorial } from './../../firebase';
+let editorialRef = db.ref('Editorial');
 export default {
   data(){
-     let randoM = {
-          fotosRig: [
-                { pic: {
-                    url: 'ALEXGARCIA2',
-                    name: 'Alex Garicia'
-                } },
-                { pic: {
-                    url: 'AMAIASALAMANCA2',
-                    name: 'Amaia Salamanca'
-                } },
-                { pic: {
-                    url: 'ANTONIOCARMONA',
-                    name: 'Antonio Carmona'
-                } },
-                { pic: {
-                    url: 'ANTONIOSANJUAN',
-                    name: 'Antonio San Juan'
-                } },
-                { pic: {
-                    url: 'BEBE2',
-                    name: 'Bebe'
-                } },
-                { pic: {
-                    url: 'COTI2',
-                    name: 'Coti'
-                } },
-                { pic: {
-                    url: 'DANIELDUBOY2',
-                    name: 'Daniel Duboy'
-                } },
-                { pic: {
-                    url: 'DUDDIWALLACE',
-                    name: 'Duddi Wallace'
-                } },
-                { pic: {
-                    url: 'FANGORIA',
-                    name: 'Fangoria'
-                } },
-                { pic: {
-                    url: 'JUANDIEGOBOTTO',
-                    name: 'Juan Diego Botto'
-                } },
-                { pic: {
-                    url: 'MANOLOGARCIA',
-                    name: 'Manolo García'
-                } },
-                { pic: {
-                    url: 'MARTINRIVAS',
-                    name: 'Martin Rivas'
-                } },
-                { pic: {
-                    url: 'MCLAN',
-                    name: 'McLan'
-                } },
-                { pic: {
-                    url: 'NACHOVEGAS2',
-                    name: 'Nacho Vegas'
-                } },
-                { pic: {
-                    url: 'PHOENIX',
-                    name: 'Phonix'
-                } },
-                { pic: {
-                    url: 'SRCHINARRO2',
-                    name: 'Sr Chinarro'
-                } },
-                { pic: {
-                    url: 'swanfyahbwoy2',
-                    name: 'Swan Fyahbwoy'
-                } },
-                { pic: {
-                    url:  'XCESE',
-                    name:  'Xcese'
-                } },
-                
-          ],
+    return {
+            fotosL: [],
+            fotosM: [],
+            fotosR: []
+        }
+  },
 
-          fotosMidd: [
-                { pic: {
-                    url: 'ALEXGARCIA',
-                    name: 'Alex García'
-                } },
-                { pic: {
-                    url: 'AMAIASALAMANCA',
-                    name: 'Amaia Salamanca'
-                } },
-                { pic: {
-                    url: 'ANTONIOCARMOA3',
-                    name: 'Antonio Carmoa'
-                } },
-                { pic: {
-                    url: 'ANTONIODELATORRE',
-                    name: 'Antonio De La Torre'
-                } },
-                { pic: {
-                    url: 'AURYN',
-                    name: 'Auryn'
-                } },
-                { pic: {
-                    url: 'CLARALAGO',
-                    name: 'Clara Lago'
-                } },
-                { pic: {
-                    url: 'DANIELDUBOY',
-                    name: 'Daniel Duboy'
-                } },
-                { pic: {
-                    url: 'DANIELDUBOY5',
-                    name: 'Daniel Duboy'
-                } },
-                { pic: {
-                    url: 'EDURNE2',
-                    name: 'Edurne'
-                } },
-                { pic: {
-                    url: 'FERNANDOGUALLAR2',
-                    name: 'Fernando Guallar'
-                } },
-                { pic: {
-                    url: 'LEIVALOQUILLOARIEL2',
-                    name: 'Leiva, Loquillo, Ariel'
-                } },
-                { pic: {
-                    url: 'MANUELAVELLES',
-                    name: 'Manuela Velles'
-                } },
-                { pic: {
-                    url: 'MARTINRIVAS4',
-                    name: 'Martin Rivas'
-                } },
-                { pic: {
-                    url: 'MIGUELANGELMUNOZ',
-                    name: 'Miguel Ángel Muñoz'
-                } },
-                { pic: {
-                    url: 'OONACHAPLIN2',
-                    name: 'Oona Chaplin'
-                } },
-                { pic: {
-                    url: 'SERIALKILLERS',
-                    name: 'Serial Killers'
-                } },
-                { pic: {
-                    url: 'YONGONZALEZ',
-                    name: 'Yon Gonzalez'
-                } },
-          ],
-          fotosLef: [
-              { pic: {
-                  url: 'ALEXDELAIGLESIA',
-                  name: 'Alex de la Iglesia'
-              } },
-              { pic: {
-                  url: 'ALEXGARCIA3',
-                  name: 'Alex Garicía'
-              } },             
-              { pic: {
-                  url: 'ANDRESCALAMARO',
-                  name: 'Andres Calamaro'
-              } },  
-              { pic: {
-                  url: 'ANTONIOCARMONA2',
-                  name: 'Antonio Carmona'
-              } },
-              { pic: {
-                  url: 'ASTRIDBERGESFRISBEY',
-                  name: 'Àstrid Bergès-Frisbey'
-              } },              
-              { pic: {
-                  url: 'BEBE3',
-                  name: 'Bebe'
-              } },
-              { pic: {
-                  url: 'COTI3',
-                  name: 'Coti'
-              } },
-              { pic: {
-                  url: 'DANIELDUBOY4',
-                  name: 'Daniel Duboy'
-              } },
-              { pic: {
-                  url: 'EDURNE',
-                  name: 'Edurne'
-              } },
-              { pic: {
-                  url: 'FERNANDOGUALLAR',
-                  name: 'Fernando Guallar'
-              } },
-              { pic: {
-                  url: 'LEIVALOQUILLOARIEL',
-                  name: 'Leiva, Loquillo, Ariel'
-              } },
-              { pic: {
-                  url: 'MARTINRIVAS3',
-                  name: 'Martín Rivas'
-              } },
-              { pic: {
-                  url: 'MEGANMONTANER',
-                  name: 'Megan Montaner'
-              } },
-              { pic: {
-                  url: 'NACHOVEGAS3',
-                  name:'Nacho Vegas'
-              } },
-              { pic: {
-                  url: 'PHOENIX2',
-                  name: 'Phoenix'
-              } },
-              { pic: {
-                  url: 'swanfyahbwoy',
-                  name: 'Swan Fyahbwoy'
-              } },
-              { pic: {
-                  url: 'XCESE2',
-                  name: 'Xcese'
-              } },
-              { pic: {
-                  url: 'YONGONZALEZ4',
-                  name: 'Yon Gonzalez'
-              } }
-          ]
-      };
+  directives: {
+        getImage (el, bind) {
+            imgEditorial
+                .child(bind.value.name + '.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    el.src = url;                
+                }).catch(function(error) {
+                    console.error(error);
+                });
+        }
+    },
 
+   mounted () {
+        let __self = this;
 
-    randoM.fotosRig = _.shuffle(randoM.fotosRig);
-    randoM.fotosMidd = _.shuffle(randoM.fotosMidd);
-    randoM.fotosLef = _.shuffle(randoM.fotosLef);
-      
-      return randoM;
-  }
+        editorialRef.on('value', (snapshot) => {
+            let __editorial = __self.$parent.$parent.sliceArray(snapshot.val(), 3);
+
+            this.fotosL = __editorial[0];
+            this.fotosM = __editorial[1];
+            this.fotosR = __editorial[2];
+        });
+    }
  
 }
 </script>

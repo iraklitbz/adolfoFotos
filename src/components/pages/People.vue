@@ -2,27 +2,27 @@
 <div class="galleryEditorials">
     <div class="column">
        <ul class="galery-horiz">
-           <li v-for="foto in fotosLef" :key="foto.id"> 
-               <img :src="'/src/images/people/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
+           <li v-for="foto in fotosL"> 
+              <img v-getImage="{'name': foto.url}" src="" />   
+               <h2>{{foto.name}}</h2>
            </li>
        </ul>
     </div>
 
     <div class="column">
        <ul class="galery-horiz">
-                 <li v-for="foto in fotosMidd"> 
-                     <img :src="'/src/images/people/' + foto.pic.url + '.jpg'" > 
-                     <h2>{{foto.pic.name}}</h2>
+                 <li v-for="foto in fotosM"> 
+                    <img v-getImage="{'name': foto.url}" src="" />   
+                     <h2>{{foto.name}}</h2>
                 </li>
        </ul>
     </div>
 
     <div class="column">
        <ul class="galery-horiz">
-            <li v-for="foto in fotosRig"> 
-               <img :src="'/src/images/people/' + foto.pic.url + '.jpg'" > 
-               <h2>{{foto.pic.name}}</h2>
+            <li v-for="foto in fotosR"> 
+              <img v-getImage="{'name': foto.url}" src="" />   
+               <h2>{{foto.name}}</h2>
             </li>
        </ul>
     </div>
@@ -31,99 +31,42 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import { db } from './../../firebase';
+import { imgPeople } from './../../firebase';
+let peopleRef = db.ref('People');
 export default {
-  data(){
-     let randoM = {
-          fotosRig: [
-                { pic: {
-                    url: 'B52',
-                    name: 'B52'
-                } },
-                { pic: {
-                    url: 'CRISDIESEL',
-                    name: 'Cris Diesel'
-                } },
-                { pic: {
-                    url: 'DAVIDMUNOZ',
-                    name: 'David Muñoz'
-                } },
-                { pic: {
-                    url: 'JESUSCALLEJA',
-                    name: 'Jesus Calleja'
-                } },
-                { pic: {
-                    url: 'JESUSCALLEJA2',
-                    name: 'Jesus Calleja'
-                } },
-                { pic: {
-                    url: 'JESUSCALLEJA3',
-                    name: 'Jesus Calleja'
-                } }
-                
-          ],
+ data(){
+    return {
+            fotosL: [],
+            fotosM: [],
+            fotosR: []
+        }
+  },
 
-          fotosMidd: [
-                { pic: {
-                    url: 'JESUSCALLEJA4',
-                    name: 'Jesus Calleja'
-                } },
-                { pic: {
-                    url: 'JOSEFAJRAM',
-                    name: 'Josef Ajram'
-                } },
-                { pic: {
-                    url: 'KRAMARTINEZ',
-                    name: 'Kra Martinez'
-                } },
-                { pic: {
-                    url: 'NURIAROCA4',
-                    name: 'Nuria Roca'
-                } },
-                { pic: {
-                    url: 'poppydelevingne',
-                    name: 'Poppy Delevingne'
-                } },
-                { pic: {
-                    url: 'poppydelevingne2',
-                    name: 'Poppy Delevingne'
-                } }
-          ],
-          fotosLef: [
-              { pic: {
-                  url: 'RUBIUS',
-                  name: 'Rubius'
-              } },
-              { pic: {
-                  url: 'RUBIUS2',
-                  name: 'Rubius'
-              } },             
-              { pic: {
-                  url: 'TORIYPILAR',
-                  name: 'Toni y Pilar'
-              } },  
-              { pic: {
-                  url: 'VK',
-                  name: 'VK'
-              } },
-              { pic: {
-                  url: 'VK2',
-                  name: 'VK'
-              } },              
-              { pic: {
-                  url: 'VK3',
-                  name: 'VK'
-              } }
-          ]
-      };
+    directives: {
+        getImage (el, bind) {
+            imgPeople
+                .child(bind.value.name + '.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    el.src = url;                
+                }).catch(function(error) {
+                    console.error(error);
+                });
+        }
+    },
 
+  mounted () {
+        let __self = this;
 
-    randoM.fotosRig = _.shuffle(randoM.fotosRig);
-    randoM.fotosMidd = _.shuffle(randoM.fotosMidd);
-    randoM.fotosLef = _.shuffle(randoM.fotosLef);
-      
-      return randoM;
-  }
+        peopleRef.on('value', (snapshot) => {
+            let __people = __self.$parent.$parent.sliceArray(snapshot.val(), 3);
+
+            this.fotosL = __people[0];
+            this.fotosM = __people[1];
+            this.fotosR = __people[2];
+        });
+    }
  
 }
 </script>
