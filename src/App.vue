@@ -1,7 +1,7 @@
 <template>
     <div class="general">
         <header name="top" id="Header">
-            <router-link class="main-logo" to="/" tag="h1"><a><img src="./images/logo.jpg"></a></router-link> 
+            <router-link class="main-logo" to="/" tag="h1"><a><img src="https://firebasestorage.googleapis.com/v0/b/adolfocallejo-13810.appspot.com/o/img%2Flogo.jpg?alt=media&token=6db3c9d2-097e-4922-bd54-ad51e948847d" /> </a></router-link> 
             <nav id="Navbar" class="navbar">
       
                 <ul>
@@ -14,6 +14,7 @@
                
             </nav>
         </header>
+        
         <router-view></router-view>
         <footer>
             <a class="fa fa-instagram" href="https://www.instagram.com/adolfo_callejo/" target="_blank"></a>
@@ -23,10 +24,12 @@
 </template>
 
 <script>
-
+import { db } from './../firebase';
+import { imgAll } from './../firebase';
 export default {
 
     mounted: function(){
+
      $(window).scroll(function(e){
         var scrollTop = $(window).scrollTop();
         var docHeight = $(document).height();
@@ -45,7 +48,7 @@ export default {
             $(window).scrollTop(0);
         })
      })
-    }
+    },
  
 }
 </script>
@@ -184,6 +187,48 @@ footer {
     }
 }
 
+.spinner {
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+  margin: 100px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
  @media screen and (max-width: 770px)  {
     .navbar {
     ul {
@@ -196,5 +241,7 @@ footer {
     }
 }
   }
+
+  
 
 </style>
